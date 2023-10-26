@@ -1,0 +1,53 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeFullpage");
+        }
+    }
+}
+
+
+<NavBar />
+<div id="fullpage">
+
+    @*Hero Section*@
+    <div class="section">
+        <Hero Title="Rapid Engineering" Sentence="WAAR PROGRAMEREN EN ENGINEERING SAMENKOMEN" />
+    </div>
+
+    <div class="section">
+    <About  Title="Wat wij doen" Subtitle="RapiD Engineering: Waar geavanceerde engineering en programmeerexpertise elkaar ontmoeten.
+Ons team, bestaande uit gedreven engineers met een diepgewortelde passie voor techniek,
+streeft ernaar elk project tot in perfectie uit te voeren.
+We gaan verder dan traditionele engineering door de integratie van geautomatiseerde processen en AI-gedreven softwaretoepassingen.
+Dit stelt ons in staat om visserijnetontwerp, 3D-modellering, en onderwater simulaties naar een hoger niveau te tillen.
+Ontdek een wereld waar technische innovatie en praktische toepassing hand in hand gaan." />
+    </div>
+
+   @* Rapid Vision Section*@
+    <div class="section">
+        <Services Tittle="Rapid Vision"
+                  imageSource="images/vision.png"
+                  InfoContent="     Ontdek RapiD Vision: ons geavanceerde plug-and-play vision systeem,
+                                speciaal ontworpen voor maritieme en voedingssectoren.
+                                Dit systeem kan niet alleen meten en wegen, maar herkent ook producttypes dankzij AI.
+                                Klik voor meer details." />
+    </div>
+
+    @*NetDesigner Section*@
+    <div class="section">
+        <Services Tittle="NetDesigner & Simulation"
+        imageSource="images/net.png"
+                  InfoContent=" Waar traditie en innovatie samenkomen! Versnel het ontwerpproces van visserijnetten,
+                                waarborg kostbare kennis en breng je 2D-ontwerpen tot leven met 3D-modellering.
+                                Voorspel het onderwatergedrag van jouw net met onze geavanceerde simulaties.
+                                Ontwerp, visualiseer en simuleer – allemaal met één krachtige tool."></Services>
+    </div>
+
+   
+</div>

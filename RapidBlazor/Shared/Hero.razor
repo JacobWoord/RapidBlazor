@@ -1,0 +1,79 @@
+﻿@using BlazorTypewriter
+@using BlazorAnimate
+@using RapidBlazor.Services;
+@inject ThemeService ThemeService;
+
+
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Sentence { get; set; }
+    private bool darkMode;
+    TypewriterBuilder typewriter;
+
+
+
+    protected override void OnInitialized()
+    {
+
+        //ThemeListener
+        darkMode = ThemeService.IsDarkMode;
+
+        ThemeService.OnThemeChanged += HandleThemeChange;
+
+        //Typewriter Effect
+        typewriter = new TypewriterBuilder(defaultCharacterPause: 6)
+            .Pause(2000)
+            .TypeString(Sentence, 100)
+            .Pause(500);
+    }
+
+    private void HandleThemeChange()
+    {
+        bool isDarkMode = ThemeService.IsDarkMode;
+        UpdateTheme(isDarkMode);
+    }
+
+
+    private void UpdateTheme(bool isDarkMode)
+    {
+
+        InvokeAsync(() =>
+        {
+            darkMode = isDarkMode;
+            StateHasChanged();
+        });
+
+    }
+
+    // Remember to unsubscribe from the event when the component is disposed to prevent memory leaks
+    public void Dispose()
+    {
+        ThemeService.OnThemeChanged -= HandleThemeChange;
+    }
+}
+
+}
+
+
+
+<div class="hero-section py-5 vh-100 d-flex flex-column justify-content-center align-items-center">
+
+    <div class="">
+        <Animate Animation="Animations.FadeIn" Duration="TimeSpan.FromSeconds(2.5)" Delay="TimeSpan.FromSeconds(0.5)">
+            <img src="images/@(darkMode ? "rapid_logo_light.png" : "dark.png")" alt="Logo Png" class="h-auto w-25 d-block mx-auto" />
+        </Animate>
+    </div>
+
+
+
+    <div class="lead text-center m-5">
+        <!-- Using the typewriter effect for SubTitle -->
+        <Animate Animation="Animations.FadeIn" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(2)">
+            <h2 class="styled-subtitle">
+                <Typewriter Builder="@typewriter" />
+            </h2>
+        </Animate>
+
+    </div>
+</div>

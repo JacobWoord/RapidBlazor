@@ -1,0 +1,50 @@
+﻿@using BlazorAnimate
+
+
+
+@code {
+
+    [Parameter]
+    public string Tittle { get; set; }
+
+    [Parameter]
+    public string InfoContent { get; set; }
+
+    [Parameter]
+    public string imageSource { get; set; }
+
+}
+
+
+<!-- Parent Div -->
+<div class="container-fluid py-5 d-flex flex-column " style="min-height: 100vh;">
+
+    <!-- Tittle  -->
+    <h1 style="font-weight: bold; " class="text-center mb-5 mt-5 ">@Tittle</h1>
+
+
+    <!-- Content Div -->
+    <div class="row align-items-center mt-5 flex-grow-1">
+
+        <!-- Image Div with FadeRight animation -->
+        <div class="col-md-6 mb-4">
+            <img src="@imageSource" alt="Description of image" class="img-fluid scale-down-50">
+        </div>
+
+        <!-- Text Div with FadeLeft animation -->
+        <div class="col-md-4 justify-content-center responsive-text ">
+            <h3 class="mb-3">@Tittle</h3>
+            <p>
+                @InfoContent
+            </p>
+            <button class="btn btn-primary">Ontdek</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

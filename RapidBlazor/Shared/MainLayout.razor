@@ -1,0 +1,14 @@
+﻿@using RapidBlazor.Services;
+@inherits LayoutComponentBase
+@inject ThemeService ThemeService
+
+<div class="@GetThemeClass()">
+    @Body
+</div>
+
+@code {
+    private string GetThemeClass()
+    {
+        return ThemeService.IsDarkMode ? "dark-theme" : "light-theme";
+    }
+}

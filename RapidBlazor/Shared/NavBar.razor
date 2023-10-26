@@ -1,0 +1,23 @@
+﻿@using RapidBlazor.Services;
+@inject ThemeService ThemeService
+@inject IJSRuntime JSRuntime
+
+<!-- Your navbar code ... -->
+
+<button class="btn btn-outline-primary m-3 " @onclick="ToggleTheme">Dark/Light Mode </button>
+
+@code {
+    private void ToggleTheme()
+    {
+       
+        ThemeService.ToggleTheme();
+        if (ThemeService.IsDarkMode)
+        {
+            JSRuntime.InvokeVoidAsync("addClassToBody", "dark-mode");
+        }
+        else
+        {
+            JSRuntime.InvokeVoidAsync("removeClassFromBody", "dark-mode");
+        }
+    }
+}

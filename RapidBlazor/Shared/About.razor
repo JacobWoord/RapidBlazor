@@ -1,0 +1,25 @@
+﻿@using BlazorAnimate
+@inject IJSRuntime JSRuntime;
+
+@code {
+    [Parameter] public string Title { get; set; } = "Over ons"; // Default value
+    [Parameter] public string Subtitle { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+ 
+
+
+}
+
+
+<div class="d-flex flex-column col-md-12  align-items-center vh-100">
+    <div class="text-center m-5">
+        <h2 >@Title</h2>
+        @if(!string.IsNullOrEmpty(Subtitle))
+        {
+            <p class="mb-4 responsive-text ">@Subtitle</p>
+        }
+        @ChildContent
+    </div>
+</div>
+
+
