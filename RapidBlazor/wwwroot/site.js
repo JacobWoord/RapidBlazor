@@ -5,6 +5,12 @@
     });
 }
 
+function destroyFullpage() {
+    if (window.fullpage_api) {
+        window.fullpage_api.destroy('all');
+    }
+}
+
 
 
 

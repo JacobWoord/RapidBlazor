@@ -1,15 +1,53 @@
 ﻿@page "/"
 @inject IJSRuntime JSRuntime
+@using RapidBlazor.Services;
+@inject ThemeService Themeservice;
+
 
 @code {
+
+    private bool isDarkMode => Themeservice.IsDarkMode;
+    private IDisposable? themeSubscription;
+
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            //Gets the fullpage.js Library running
             await JSRuntime.InvokeVoidAsync("initializeFullpage");
         }
     }
+
+
+    protected override void OnInitialized()
+    {
+
+        //subscribe to the event
+        Themeservice.OnThemeChanged += HandleThemeChange;
+
+    }
+
+    private void HandleThemeChange()
+    {
+
+
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+
+    }
+
+
+    public void Dispose()
+    {
+        //Unsubscribe from the event
+        Themeservice.OnThemeChanged -= HandleThemeChange;
+    }
 }
+
+
 
 
 <NavBar />
@@ -19,9 +57,10 @@
     <div class="section">
         <Hero Title="Rapid Engineering" Sentence="WAAR PROGRAMEREN EN ENGINEERING SAMENKOMEN" />
     </div>
+  
 
     <div class="section">
-    <About  Title="Wat wij doen" Subtitle="RapiD Engineering: Waar geavanceerde engineering en programmeerexpertise elkaar ontmoeten.
+        <About Title="Wat wij doen" Subtitle="RapiD Engineering: Waar geavanceerde engineering en programmeerexpertise elkaar ontmoeten.
 Ons team, bestaande uit gedreven engineers met een diepgewortelde passie voor techniek,
 streeft ernaar elk project tot in perfectie uit te voeren.
 We gaan verder dan traditionele engineering door de integratie van geautomatiseerde processen en AI-gedreven softwaretoepassingen.
@@ -29,9 +68,10 @@ Dit stelt ons in staat om visserijnetontwerp, 3D-modellering, en onderwater simu
 Ontdek een wereld waar technische innovatie en praktische toepassing hand in hand gaan." />
     </div>
 
-   @* Rapid Vision Section*@
+    @* Rapid Vision Section*@
     <div class="section">
-        <Services Tittle="Rapid Vision"
+        <Services ServiceId="rapid-vision"
+                  Tittle="Rapid Vision"
                   imageSource="images/vision.png"
                   InfoContent="     Ontdek RapiD Vision: ons geavanceerde plug-and-play vision systeem,
                                 speciaal ontworpen voor maritieme en voedingssectoren.
@@ -40,14 +80,23 @@ Ontdek een wereld waar technische innovatie en praktische toepassing hand in han
     </div>
 
     @*NetDesigner Section*@
+
+
+    @{
+
+        string imageSource = isDarkMode ? "images/darknet.png" : "images/Net.png";
+
+    }
     <div class="section">
-        <Services Tittle="NetDesigner & Simulation"
-        imageSource="images/net.png"
+        <Services
+            ServiceId="net-designer"
+            Tittle="NetDesigner & Simulation"
+                  imageSource="@imageSource"
                   InfoContent=" Waar traditie en innovatie samenkomen! Versnel het ontwerpproces van visserijnetten,
                                 waarborg kostbare kennis en breng je 2D-ontwerpen tot leven met 3D-modellering.
                                 Voorspel het onderwatergedrag van jouw net met onze geavanceerde simulaties.
                                 Ontwerp, visualiseer en simuleer – allemaal met één krachtige tool."></Services>
     </div>
 
-   
+
 </div>

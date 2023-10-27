@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using RapidBlazor.Data;
 using RapidBlazor.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -29,5 +30,7 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+
 
 app.Run();

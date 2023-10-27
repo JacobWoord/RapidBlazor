@@ -1,17 +1,38 @@
-﻿@using BlazorAnimate
+﻿@page "/services/{serviceId}"
+@using BlazorAnimate
+@inject NavigationManager NavigationManager;
+@implements IAsyncDisposable
+@inject IJSRuntime JSRuntime
 
 
 
 @code {
 
     [Parameter]
-    public string Tittle { get; set; }
+    public string? Tittle { get; set; }
 
     [Parameter]
-    public string InfoContent { get; set; }
+    public string? InfoContent { get; set; }
 
     [Parameter]
-    public string imageSource { get; set; }
+    public string? imageSource { get; set; }
+
+    [Parameter]
+    public string? ServiceId { get; set; }
+
+
+
+    public void NavigateToServiceDetails()
+    {
+        // use the manager to navigate 
+     
+        NavigationManager.NavigateTo($"services/{ServiceId}");
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("destroyFullpage");
+    }
 
 }
 
@@ -37,7 +58,7 @@
             <p>
                 @InfoContent
             </p>
-            <button class="btn btn-primary">Ontdek</button>
+            <button @onclick="NavigateToServiceDetails" class="btn btn-primary">Ontdek</button>
         </div>
     </div>
 </div>

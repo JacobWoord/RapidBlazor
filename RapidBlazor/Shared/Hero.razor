@@ -31,20 +31,17 @@
     private void HandleThemeChange()
     {
         bool isDarkMode = ThemeService.IsDarkMode;
-        UpdateTheme(isDarkMode);
-    }
-
-
-    private void UpdateTheme(bool isDarkMode)
-    {
-
+       
+        
         InvokeAsync(() =>
         {
             darkMode = isDarkMode;
             StateHasChanged();
         });
-
     }
+
+
+ 
 
     // Remember to unsubscribe from the event when the component is disposed to prevent memory leaks
     public void Dispose()
@@ -53,7 +50,7 @@
     }
 }
 
-}
+
 
 
 
@@ -61,7 +58,7 @@
 
     <div class="">
         <Animate Animation="Animations.FadeIn" Duration="TimeSpan.FromSeconds(2.5)" Delay="TimeSpan.FromSeconds(0.5)">
-            <img src="images/@(darkMode ? "rapid_logo_light.png" : "dark.png")" alt="Logo Png" class="h-auto w-25 d-block mx-auto" />
+            <img src="images/@(darkMode ? "rapid_logo_light.png" : "darklogo.png")" alt="Logo Png" class="h-auto w-25 d-block mx-auto" />
         </Animate>
     </div>
 
